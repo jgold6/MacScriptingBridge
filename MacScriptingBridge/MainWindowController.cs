@@ -48,7 +48,9 @@ namespace MacScriptingBridge
 			IntPtr disk = Messaging.IntPtr_objc_msgSend_int (disks, Selector.GetHandle ("objectAtIndex:"), 0);
 			// NSString *name = [disk name]; // lazy evaluation occurs
 			IntPtr name = Messaging.IntPtr_objc_msgSend (disk, Selector.GetHandle ("name"));
+
 			string strname = new NSString (name);
+
 			// NSLog(@"Name of first disk is %@", strname);
 			Console.WriteLine ("Name of first disk is {0}", strname);
 
@@ -56,7 +58,9 @@ namespace MacScriptingBridge
 			SBApplication iTunes=SBApplication.FromBundleIdentifier("com.apple.iTunes");
 			// Get Volume
 			IntPtr ptrVol = Messaging.IntPtr_objc_msgSend(iTunes.Handle, Selector.GetHandle ("soundVolume"));
+
 			int vol = (int)ptrVol;
+
 			// Show Volume to console
 			Console.WriteLine("Volume: {0}", vol);
 			lblVolume.StringValue = String.Format("Volume: {0}", vol); // in app label
@@ -89,10 +93,13 @@ namespace MacScriptingBridge
 				IntPtr ptrTitle = Messaging.IntPtr_objc_msgSend(ptr, Selector.GetHandle("name")); // use pointer to track object to get song name
 				IntPtr ptrArtist = Messaging.IntPtr_objc_msgSend(ptr, Selector.GetHandle("artist")); // artist
 				IntPtr ptrAlbum = Messaging.IntPtr_objc_msgSend(ptr, Selector.GetHandle("album")); // and album
+
 				string song = new NSString(ptrTitle); // convert pointers to strings
 				string artist = new NSString(ptrArtist);
 				string album = new NSString(ptrAlbum);
+
 				Console.WriteLine("iTunes Song Playing: Artist: {0}, Album: {1}, Title: {2}", artist,album, song); // show in console
+
 				lblArtist.StringValue = String.Format("Artist: {0}", artist); // Show in app labels
 				lblAlbum.StringValue = String.Format("Album: {0}", album);
 				lblSong.StringValue = String.Format("Song: {0}", song);
