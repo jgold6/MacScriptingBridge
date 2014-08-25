@@ -1,0 +1,4 @@
+*.userprefs
+Components/*
+*/obj/*
+*/bin/*
